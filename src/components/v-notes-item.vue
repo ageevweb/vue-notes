@@ -1,14 +1,21 @@
 <template lang="pug">
   .v-notes-item
-    p NOTES-ITEM
-
-
+    p {{ note.title }}
+    p {{ note.descr }}
 </template>
 
 <script>
 
 export default {
   name: 'v-notes-item',
+  props:{
+    note: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  }
 }
 </script>
 

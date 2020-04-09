@@ -1,7 +1,6 @@
 <template lang="pug">
   #app
     v-notes
-
 </template>
 
 <script>
@@ -11,6 +10,12 @@ export default {
   name: 'App',
   components: {
     vNotes
+  },
+  methods: {
+
+  },
+  data(){
+    return{}
   }
 }
 </script>
