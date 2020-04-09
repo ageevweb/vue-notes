@@ -1,14 +1,17 @@
 <template lang="pug">
   #app
+    v-new-note
     v-notes
 </template>
 
 <script>
+import vNewNote from '@/components/v-new-note'
 import vNotes from '@/components/v-notes'
 
 export default {
   name: 'App',
   components: {
+    vNewNote,
     vNotes
   },
   methods: {

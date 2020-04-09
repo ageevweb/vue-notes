@@ -2,6 +2,7 @@
   .v-notes-item
     p {{ note.title }}
     p {{ note.descr }}
+    p {{ note.date }}
 </template>
 
 <script>

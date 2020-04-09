@@ -3,11 +3,9 @@
     p NOTES
     v-notes-item(
       v-for="(note, index) in NOTES"
-      :key="note.index"
+      :key="index"
       :note="note"
     )
-
-
 </template>
 
 <script>
