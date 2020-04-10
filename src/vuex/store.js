@@ -39,6 +39,13 @@ const store = new Vuex.Store({
       notesLs.push(newNote);
       localStorage.setItem('notes', JSON.stringify(notesLs));
       state.notes = notesLs
+    },
+
+    REMOVE_NOTE: (state, index) => {
+      let notesLs = JSON.parse(localStorage.getItem('notes'));
+      notesLs.splice(index, 1);
+      localStorage.setItem('notes', JSON.stringify(notesLs));
+      state.notes = notesLs
     }
   },
 
@@ -54,6 +61,10 @@ const store = new Vuex.Store({
 
     ADD_NEW_NOTE({ commit }, note) {
       commit('ADD_NEW_NOTE', note);
+    },
+
+    REMOVE_NOTE({commit}, index) {
+      commit('REMOVE_NOTE', index);
     }
   },
 
