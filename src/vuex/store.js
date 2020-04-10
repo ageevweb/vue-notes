@@ -13,6 +13,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     notes: [],
+    message: ''
   },
 
 
@@ -46,6 +47,10 @@ const store = new Vuex.Store({
       notesLs.splice(index, 1);
       localStorage.setItem('notes', JSON.stringify(notesLs));
       state.notes = notesLs
+    },
+
+    SET_MESSAGE: (state, message) => {
+      state.message = message
     }
   },
 
@@ -65,12 +70,19 @@ const store = new Vuex.Store({
 
     REMOVE_NOTE({commit}, index) {
       commit('REMOVE_NOTE', index);
+    },
+
+    SET_MESSAGE({commit}, message) {
+      commit('SET_MESSAGE', message);
     }
   },
 
   getters:{
     NOTES(state) {
       return state.notes;
+    },
+    MESSAGE(state) {
+      return state.message;
     },
   },
 });

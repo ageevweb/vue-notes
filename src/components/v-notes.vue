@@ -3,7 +3,6 @@
     .v-notes-item(
       v-for="(note, index) in NOTES"
       :key="index"
-      :note="note"
       :class="note.priority"
     )
       .v-notes-item__header
@@ -20,14 +19,6 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'v-notes',
-  data() {
-    return {
-
-    }
-  },
-  components: {
-
-  },
   methods: {
     ...mapActions([
       'GET_NOTES_FROM_LS',
