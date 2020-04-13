@@ -29,5 +29,6 @@ export default {
   .v-message{
     color: red;
     font-size: 20px;
+    margin-bottom: 30px;
   }
 </style>

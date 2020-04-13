@@ -3,14 +3,14 @@
     .v-notes-item(
       v-for="(note, index) in NOTES"
       :key="index"
-      :class="note.priority"
+      :class="[note.priority , { gridSize: !GRID }]"
     )
       .v-notes-item__header
         p {{ note.title }}
         .note-remove(@click="removeNote(index)") &#10006
       .v-notes-item__body
         .v-notes-item__descr {{ note.descr }}
-        .v-notes-item__priority {{ note.priority }}
+        .v-notes-item__priority priority: {{ note.priority }}
         .v-notes-item__date {{ note.date }}
 </template>
 
@@ -31,6 +31,7 @@ export default {
   computed: {
     ...mapGetters([
       'NOTES',
+      'GRID'
     ]),
   },
   mounted() {
@@ -148,6 +149,10 @@ export default {
     color: #402caf;
     display: none;
     cursor: pointer;
+  }
+
+  .gridSize{
+    width: 100%;
   }
 
   @media screen and (max-width:768px) {

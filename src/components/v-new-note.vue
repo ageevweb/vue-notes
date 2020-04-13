@@ -103,7 +103,7 @@ export default {
 <style lang="scss">
   .v-new-note{
     button{
-      margin: 30px auto;
+      margin: 20px auto;
       display: block
     }
   }

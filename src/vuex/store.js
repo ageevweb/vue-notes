@@ -13,7 +13,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     notes: [],
-    message: ''
+    message: null,
+    grid: true
   },
 
 
@@ -51,6 +52,10 @@ const store = new Vuex.Store({
 
     SET_MESSAGE: (state, message) => {
       state.message = message
+    },
+
+    SWITCH_GRID: (state, position) => {
+      state.grid = position
     }
   },
 
@@ -74,6 +79,9 @@ const store = new Vuex.Store({
 
     SET_MESSAGE({commit}, message) {
       commit('SET_MESSAGE', message);
+    },
+    SWITCH_GRID({commit}, position) {
+      commit('SWITCH_GRID', position);
     }
   },
 
@@ -83,6 +91,9 @@ const store = new Vuex.Store({
     },
     MESSAGE(state) {
       return state.message;
+    },
+    GRID(state) {
+      return state.grid;
     },
   },
 });
