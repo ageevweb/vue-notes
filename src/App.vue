@@ -4,7 +4,6 @@
     v-new-note
     v-message
     .row
-      v-search
       v-grid
     v-notes
 </template>
@@ -21,7 +20,6 @@ export default {
   components: {
     vNewNote,
     vMessage,
-    vSearch,
     vGrid,
     vNotes
   }

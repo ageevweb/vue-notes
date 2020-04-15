@@ -26,6 +26,8 @@ const store = new Vuex.Store({
         descr: 'Descr for first note',
         date: new Date(Date.now()).toLocaleString(),
         priority: 'normal',
+        changeProcessTitle: false,
+        changeProcessDesc: false
       }
       notesLS.push(firstNote)
       localStorage.setItem('notes', JSON.stringify(notesLS));
@@ -56,6 +58,18 @@ const store = new Vuex.Store({
 
     SWITCH_GRID: (state, position) => {
       state.grid = position
+    },
+
+    ACTIVE_TITLE_EDIT: (state, index) => {
+      state.notes.forEach(elem => {
+        elem.changeProcessTitle = false;
+      });
+      state.notes[index].changeProcessTitle = true;
+    },
+    CLOSE_ALL_CHANGE: (state) => {
+      state.notes.forEach(elem => {
+        elem.changeProcessTitle = false;
+      });
     }
   },
 
@@ -80,8 +94,17 @@ const store = new Vuex.Store({
     SET_MESSAGE({commit}, message) {
       commit('SET_MESSAGE', message);
     },
+
     SWITCH_GRID({commit}, position) {
       commit('SWITCH_GRID', position);
+    },
+
+    ACTIVE_CHANGE_TITLE_INPUT({commit}, index) {
+      commit('ACTIVE_CHANGE_TITLE_INPUT', index)
+    },
+
+    CLOSE_ALL_CHANGE({commit}) {
+      commit('CLOSE_ALL_CHANGE')
     }
   },
 

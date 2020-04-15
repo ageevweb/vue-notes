@@ -1,38 +1,77 @@
 <template lang="pug">
   .v-notes
-    .v-notes-item(
-      v-for="(note, index) in NOTES"
-      :key="index"
-      :class="[note.priority , { gridSize: !GRID }]"
+    vSearch(
+      @search="search = $event"
+      :value="search" 
     )
-      .v-notes-item__header
-        p {{ note.title }}
-        .note-remove(@click="removeNote(index)") &#10006
-      .v-notes-item__body
-        .v-notes-item__descr {{ note.descr }}
-        .v-notes-item__priority priority: {{ note.priority }}
-        .v-notes-item__date {{ note.date }}
+    .v-notes-list
+      v-notes-item(
+        v-for="(note, index) in NOTES"
+        :key="note.date"
+        :note="note"
+        @removeNote="removeNote(index)"
+      )
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import vNotesItem from '@/components/v-notes-item'
+import vSearch from '@/components/v-search'
+
 
 export default {
   name: 'v-notes',
+
+  data () {
+    return { 
+      search: ''
+    }
+  },
+
+  components:{
+    vNotesItem,
+    vSearch,
+  },
+
   methods: {
     ...mapActions([
       'GET_NOTES_FROM_LS',
-      'REMOVE_NOTE'
+      'REMOVE_NOTE',
+      // 'OPEN_CHANGE_TITLE_INPUT',
     ]),
+
     removeNote(index) {
       this.REMOVE_NOTE(index)
-    }
+    },
+    // openChangeTitleInput(index) {
+    //   this.OPEN_CHANGE_TITLE_INPUT(index);
+    // },
+    // closeChange(note){
+    //   console.log(note)
+    // }
   },
   computed: {
     ...mapGetters([
       'NOTES',
       'GRID'
     ]),
+
+    notesFilter(){
+      let array = this.NOTES,
+          search = this.search
+
+      if (!search) return array
+      
+      search = search.trim().toLowerCase();
+
+      array = array.filter( function(item){
+        if(item.title.toLowerCase().indexOf(search) !== -1){
+          return item
+        }
+      })
+      console.log(array)
+      return array
+    }
   },
   mounted() {
     this.GET_NOTES_FROM_LS();
@@ -43,132 +82,13 @@ export default {
 
 <style lang="scss">
   .v-notes{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-content: flex-start;
     padding: 40px 0;
-  }
-  .v-notes-item{
-    width: 49%;
-    padding: 18px 20px;
-    margin-bottom: 20px;
-    background-color: #fff;
-    box-shadow: 0 30px 30px rgba(0,0,0, .02);
-    transition: all .25s cubic-bezier(.02, .01, .47, 1);
-    border-radius: 20px;
 
-    &__header{
-    display: flex;
-    justify-content: space-between;
-    font-size: 22px;
-    color: #402caf;
-    }
-
-    &__body{
+    &-list{
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-    }
-
-    &.full{
-      width: 100%;
-    }
-
-    &:hover{
-      box-shadow: 0 30px 30px rgba(0,0,0, .04);
-      transform: translate(0, -6px);
-      transition-delay: 0s !important; 
-    }
-  }
-
-  
-  
-  .note-remove{
-    cursor: pointer; 
-    margin-left: 15px;
-  }
-
-  .high{
-    background-color: #f77777
-  }
-  .medium{
-    background-color: #f0f79e
-  }
-
-  .new-note-row{
-    position: relative;
-    cursor: pointer;
-    margin-bottom: 7px;
-  }
-
-  .change-input{
-    position: absolute;
-    top: 0px;
-    height: 29px;
-    width: auto;
-    padding: 0 4px;
-    color: #402caf;
-    border-radius: 7px;
-    font-size: 22px;
-    border: 2px solid #402caf;
-    padding-right: 40px;
-    width: 300px;
-  }
-
-  .change-input--desc{
-    color: #101010;;
-    font-size: 20px;
-    display: none;
-  }
-
-  .change-input--title{
-    display: none;
-  }
-  .change-input--active{
-    display: block;
-  }
-  .cancel-title-change{
-    background: transparent;
-    border: none;
-    position: absolute;
-    left: 270px;
-    z-index: 50;
-    color: #402caf;
-    display: none;
-    cursor: pointer;
-  }
-
-  .cancel-desc-change{
-    background: transparent;
-    border: none;
-    position: absolute;
-    left: 270px;
-    z-index: 50;
-    color: #402caf;
-    display: none;
-    cursor: pointer;
-  }
-
-  .gridSize{
-    width: 100%;
-  }
-
-  @media screen and (max-width:768px) {
-    .priority{
       flex-wrap: wrap;
-    }
-    .priority-title {
-    padding-right: 0px;
-    width: 100%;
-    margin-bottom: 20px;
+      justify-content: space-between;
     }
   }
-  @media screen and (max-width:480px) {
-    .priority-item {
-    margin-right: 0px; 
-    width: 100%;
-  }
-  }
+
 </style>

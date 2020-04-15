@@ -80,22 +80,22 @@ export default {
         title,
         descr,
         date: new Date(Date.now()).toLocaleString(),
-        priority
+        priority,
+        changeProcessTitle: false,
+        changeProcessDesc: false
       }
       console.log(newNote)
       
       this.ADD_NEW_NOTE(newNote)
       
-      
       this.note.title = this.note.descr = '';
       this.note.priority = 'normal';
+    
       this.SET_MESSAGE(null)
-
   },
 
 
   },
-  
 }
 </script>
 
