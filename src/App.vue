@@ -36,6 +36,7 @@ export default {
     max-width: 800px;
     margin: 0 auto;
     padding: 15px;
+    line-height: normal;
   .app__title{
     color: #402caf;
     font-size: 30px;

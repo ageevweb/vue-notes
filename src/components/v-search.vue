@@ -52,7 +52,6 @@ export default {
       border-radius: 30px;
       color: #2c3e50;
       font-size: 16px;
-      min-width: 400px;
       height: auto;
     }
     

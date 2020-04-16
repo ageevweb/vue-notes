@@ -19,6 +19,8 @@
         @saveNoteTitle="saveNoteTitle"
         @saveNoteDesc="saveNoteDesc"
       )
+    .empty-list(v-if="!NOTES.length")
+      p There are no notes yet. You can add them...
 </template>
 
 <script>
@@ -101,6 +103,12 @@ export default {
 
   mounted() {
     this.GET_NOTES_FROM_LS();
+
+    window.addEventListener('keyup', e => {
+      if(e.keyCode === 27){
+        this.CLOSE_CHANGE()
+      }
+    })
   },
 }
 </script>

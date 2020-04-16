@@ -154,4 +154,21 @@ export default {
       background-color:  #494ce8;
     }
   }
+
+  @media (max-width: 475px) {
+    .priority {
+      flex-direction: column;
+    }
+    .priority-title {
+      padding-right: 0;
+      margin-bottom: 20px;
+    }
+    .priority-item {
+      width: 100px;
+      margin: 0 auto;
+      &:last-child {
+        margin: 0 auto;
+      }
+    }
+  }
 </style>

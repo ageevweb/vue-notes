@@ -97,7 +97,7 @@ export default {
 
   .v-notes-item{
     width: 49%;
-    padding: 18px 20px;
+    padding: 20px;
     margin-bottom: 20px;
     background-color: #fff;
     box-shadow: 0 30px 30px rgba(0,0,0, .02);
@@ -120,10 +120,11 @@ export default {
     }
 
     &__header{
-    display: flex;
-    justify-content: space-between;
-    font-size: 22px;
-    color: #402caf;
+      display: flex;
+      justify-content: space-between;
+      font-size: 22px;
+      color: #402caf;
+      position: relative;
     }
 
     &__body{
@@ -136,11 +137,13 @@ export default {
     &__title{
       text-align: left;
       max-width: 65%;
+      word-wrap: break-word;
     }
 
-    &__descr{
+    &__desc{
       text-align: left;
       max-width: 65%;
+      word-wrap: break-word;
     }
     &__priority{
       margin-bottom: 10px;
@@ -166,14 +169,22 @@ export default {
 
   .note-remove{
     cursor: pointer; 
-    margin-left: 15px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
   }
 
   .high{
-    background-color: #f77777
+    background-color: #f77777;
+    input{
+      background-color: #f77777;
+    }
   }
   .medium{
-    background-color: #f0f79e
+    background-color: #f0f79e;
+    input{
+      background-color: #f0f79e;
+    }
   }
 
   .new-note-row{
@@ -189,16 +200,22 @@ export default {
 
   .change-block{
     width: 100%;
+    display: flex;
+    flex-direction: column;
     &__btns{
+      margin-top: 10px;
+      display: flex;
       button{
-        margin: 5px;
-        width: 33%;
+        width: 65px;
         border-radius: 25px;
         background-color: #00E676;
         color: #fff;
         font-size: 14px;
         padding: 10px;
         cursor: pointer;
+        &:last-child{
+          margin-left: 10px;
+        }
 
         &:last-child{
           background-color: #EF5350;
@@ -207,4 +224,28 @@ export default {
     }
   }
 
+  @media (max-width: 475px) {
+    .v-notes-item{
+      padding: 10px;
+    }
+    .change-icon {
+      height: 20px;
+      margin-right: 10px;
+    }
+    .v-notes-item__title {
+      font-size: 17px;
+    }
+    .v-notes-item__desc {
+      font-size: 14px;
+    }
+
+    .v-notes-item__priority,
+    .v-notes-item__date{
+      font-size: 14px;
+    }
+    .note-remove {
+      right: 0px;
+      top: -5px;
+    }
+  }
 </style>
