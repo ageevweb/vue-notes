@@ -3,13 +3,21 @@
     vSearch(
       @search="search = $event"
       :value="search" 
+      placeholder="find your note..." 
+
     )
     .v-notes-list
       v-notes-item(
-        v-for="(note, index) in NOTES"
+        v-for="(note, index) in notesFilter"
         :key="note.date"
         :note="note"
         @removeNote="removeNote(index)"
+        @activeTitleEdit="activeTitleEdit(index)"
+        @activeDescEdit="activeDescEdit(index)"
+        :idx="index"
+        @closeChange="closeChange"
+        @saveNoteTitle="saveNoteTitle"
+        @saveNoteDesc="saveNoteDesc"
       )
 </template>
 
@@ -37,18 +45,36 @@ export default {
     ...mapActions([
       'GET_NOTES_FROM_LS',
       'REMOVE_NOTE',
-      // 'OPEN_CHANGE_TITLE_INPUT',
+      'ACTIVE_TITLE_EDIT',
+      'ACTIVE_DESC_EDIT',
+      'SAVE_NOTE_TITLE',
+      'SAVE_NOTE_DESC',
+      'CLOSE_CHANGE'
     ]),
 
     removeNote(index) {
       this.REMOVE_NOTE(index)
     },
-    // openChangeTitleInput(index) {
-    //   this.OPEN_CHANGE_TITLE_INPUT(index);
-    // },
-    // closeChange(note){
-    //   console.log(note)
-    // }
+
+    saveNoteTitle(newVal, idx){
+      this.SAVE_NOTE_TITLE( {newVal, idx} )
+    },
+
+    saveNoteDesc(newValDesc, idx){
+      this.SAVE_NOTE_DESC( {newValDesc, idx} )
+    },
+
+    activeTitleEdit(index) {
+      this.ACTIVE_TITLE_EDIT(index);
+    },
+
+    activeDescEdit(index) {
+      this.ACTIVE_DESC_EDIT(index);
+    },
+
+    closeChange(){
+      this.CLOSE_CHANGE()
+    }
   },
   computed: {
     ...mapGetters([
@@ -61,7 +87,6 @@ export default {
           search = this.search
 
       if (!search) return array
-      
       search = search.trim().toLowerCase();
 
       array = array.filter( function(item){
@@ -73,6 +98,7 @@ export default {
       return array
     }
   },
+
   mounted() {
     this.GET_NOTES_FROM_LS();
   },

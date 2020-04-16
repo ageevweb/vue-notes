@@ -63,13 +63,51 @@ const store = new Vuex.Store({
     ACTIVE_TITLE_EDIT: (state, index) => {
       state.notes.forEach(elem => {
         elem.changeProcessTitle = false;
+        elem.changeProcessDesc = false; 
       });
       state.notes[index].changeProcessTitle = true;
     },
-    CLOSE_ALL_CHANGE: (state) => {
+
+    ACTIVE_DESC_EDIT: (state, index) => {
+      state.notes.forEach(elem => {
+        elem.changeProcessDesc = false;
+        elem.changeProcessTitle = false; 
+      });
+      state.notes[index].changeProcessDesc = true;
+    },
+
+    SAVE_NOTE_TITLE: (state, data) => {
+      let notesLs = JSON.parse(localStorage.getItem('notes'));
+      console.log(data.newVal, data.idx) 
+
+      notesLs[data.idx].title = data.newVal
+      localStorage.setItem('notes', JSON.stringify(notesLs));
+      state.notes = notesLs
+
       state.notes.forEach(elem => {
         elem.changeProcessTitle = false;
       });
+    },
+
+    SAVE_NOTE_DESC: (state, data) => {
+      let notesLs = JSON.parse(localStorage.getItem('notes'));
+      console.log(data.newValDesc, data.idx) 
+
+      notesLs[data.idx].descr = data.newValDesc
+      localStorage.setItem('notes', JSON.stringify(notesLs));
+      state.notes = notesLs
+
+      state.notes.forEach(elem => {
+        elem.changeProcessDesc = false;
+      });
+    },
+
+    CLOSE_CHANGE: (state) => {
+      state.notes.forEach(elem => {
+        elem.changeProcessTitle = false;
+        elem.changeProcessDesc = false; 
+      });
+     
     }
   },
 
@@ -99,13 +137,30 @@ const store = new Vuex.Store({
       commit('SWITCH_GRID', position);
     },
 
-    ACTIVE_CHANGE_TITLE_INPUT({commit}, index) {
-      commit('ACTIVE_CHANGE_TITLE_INPUT', index)
+    ACTIVE_TITLE_EDIT({commit}, index) {
+      commit('ACTIVE_TITLE_EDIT', index)
+    },
+
+    ACTIVE_DESC_EDIT({commit}, index) {
+      commit('ACTIVE_DESC_EDIT', index)
     },
 
     CLOSE_ALL_CHANGE({commit}) {
       commit('CLOSE_ALL_CHANGE')
-    }
+    },
+
+    SAVE_NOTE_TITLE({commit}, data){
+      commit('SAVE_NOTE_TITLE', data)
+    },
+
+    SAVE_NOTE_DESC({commit}, data) {
+      commit('SAVE_NOTE_DESC', data)
+    },
+
+    CLOSE_CHANGE({commit}){
+      commit('CLOSE_CHANGE')
+    },
+
   },
 
   getters:{
